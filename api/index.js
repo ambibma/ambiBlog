@@ -5,7 +5,6 @@ const User = require('./models/User')
 const app = express();
 const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10);
-
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 require('dotenv').config()
