@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
+import {format} from 'date-fns';
 
-export default function Post() {
+export default function Post({title, summary, cover, content,author, createdAt}) {
   return (
     <div className="post">
           <div className="image">
             <img src="https://7dayssuccess.com/wp-content/uploads/2020/05/Computer-Technology.jpeg"/>
           </div>          
           <div className="texts">
-          <h2>My Coding Life</h2>
+          <h2>{title}</h2>
           <p className="info">
-            <span className="author">Ambi</span>
-            <time>2023-8-10</time>
+            <span className="author">{author.username}</span>
+            <time>{format(new Date(createdAt), 'MMM d yyyy H:MM')}</time>
           </p>
-          <p className="summary">There are so many things I love to build. Building developing are everything I love to do. It is super crazy. I love it.</p>
+          <p className="summary">{summary}</p>
           </div>        
         </div>
   )
