@@ -95,3 +95,11 @@ button {
 form h1 {
   text-align: center;
 }
+
+.text-editor {
+  width: 675px;
+  margin: 0 auto;
+}
+.ql-editor {
+  min-height: 100px;
+}
