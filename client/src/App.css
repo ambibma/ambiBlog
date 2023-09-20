@@ -58,6 +58,10 @@ div.post p.info {
   gap: 5px;
 
 }
+div.post div.texts a {
+  text-decoration: none;
+  color: inherit;
+}
 
 div.post p.info a.author {
   color: #333;
