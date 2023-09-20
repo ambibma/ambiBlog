@@ -17,16 +17,16 @@ const PostModel = require('./models/Post');
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(express.json())
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
-const storage = multer.diskStorage({
-  desination: "uploads",
-  filename: (req, file, cb) => {
-    console.log(file);
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
+// const storage = multer.diskStorage({
+//   desination: "uploads",
+//   filename: (req, file, cb) => {
+//     console.log(file);
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
 
-// app.use('ambiBlog/api/uploads', express.static(__dirname + '/uploads'));
 mongoose.connect(process.env.MONGODB);
 
 app.post('/register', async (req, res) => {
@@ -112,7 +112,11 @@ app.post('/post', uploadMiddleware.single('files'), async (req,res) => {
 
 app.get('/post', async (req, res) => {
 
-  res.json(await PostModel.find().populate('author', ['username']));
+  res.json(await PostModel.find()
+  .populate('author', ['username'])
+  .sort({createdAt: -1})
+  .limit (20)
+  );
 })
   
 
