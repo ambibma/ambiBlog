@@ -7,10 +7,12 @@ A development of a personal blog using MERN stack (Mongo DB, Express, React and 
 
 
 ## To Do
-  * Create Post functionality
-    * Implementing a text editor 
-  * fetching posts from DB
-  * Creating a post detail page
+  * ~~Create Post functionality~~
+    * ~~Implementing a text editor~~ 
+  * ~~fetching posts from DB~~
+  * ~~Creating a post detail page~~
+  * ~~Edit post~~
+  * ~~delete post~~
   * Securing myself as the only one able to create posts
   * Figuring out how to host it somewhere.... hmmmm
 
