@@ -110,6 +110,39 @@ app.post('/post', uploadMiddleware.single('files'), async (req,res) => {
 });
 });
 
+app.put('/post', uploadMiddleware.single('files'), async (req, res) => {
+  let newPath = null;
+  if(req.file) {
+    const {originalname,path} = req.file;
+    const parts = originalname.split('.');
+    const ext = parts[parts.length - 1];
+     newPath = path+'.'+ext;
+    fs.renameSync(path, newPath);
+  }
+
+  const {token}= req.cookies; 
+
+  jwt.verify(token, process.env.SECRET, {}, async (err,info) => {
+    if (err) throw err;
+    const {id, title,summary,content} = req.body;
+    const postDoc = await PostModel.findById(id);
+    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+    
+    if (!isAuthor) {
+      return res.status(400).json('you are not the author');
+    }
+    await postDoc.updateOne({
+      title,
+      summary,
+      content,
+      cover: newPath ? newPath: postDoc.cover,
+    });
+    res.json(postDoc);   
+  
+});
+  
+});
+
 app.get('/post', async (req, res) => {
 
   res.json(await PostModel.find()
@@ -124,7 +157,45 @@ app.get('/post/:id', async(req, res) => {
   const postDoc = await PostModel.findById(id).populate('author', ['username']);
 
   res.json(postDoc);
-})
+}) 
+
+app.delete('/post/:id', async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    // Find the post by its ID
+    const post = await PostModel.findById(postId);
+    
+
+    if (!post) {
+      // If the post is not found, return a 404 Not Found response
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Check if the current user is the author of the post
+    const { token } = req.cookies;
+    jwt.verify(token, process.env.SECRET, {}, async (err, info) => {
+      if (err) throw err;
+      
+      const isAuthor = JSON.stringify(post.author) === JSON.stringify(info.id);
+      
+      if (!isAuthor) {
+        // If the current user is not the author, return a 403 Forbidden response
+        return res.status(403).json({ error: 'You are not the author of this post' });
+      }
+
+      // Delete the post
+      await post.deleteOne();
+
+      // Return a success response
+      res.json({ message: 'Post deleted successfully' });
+    });
+  } catch (error) {
+    // Handle any errors that may occur during the deletion process
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
   
 
 app.listen(4000)
