@@ -12,12 +12,18 @@ const uploadMiddleware = multer({dest: 'uploads/'});
 require('dotenv').config();
 const fs = require('fs');
 const PostModel = require('./models/Post');
+const limiter = require('./limiter');
+const roleCheckMiddleware = require('./roleCheckMiddleware');
+
 
 
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(express.json())
 app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/api', limiter);
+
+
 
 // const storage = multer.diskStorage({
 //   desination: "uploads",
@@ -29,20 +35,20 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect(process.env.MONGODB);
 
-app.post('/register', async (req, res) => {
-  const {username, password} = req.body;
-  try {
-    const userDoc = await User.create({
-      username,
-      password: bcrypt.hashSync(password, salt),
-    });
-    res.json(userDoc);
+// app.post('/register', async (req, res) => {
+//   const {username, password} = req.body;
+//   try {
+//     const userDoc = await User.create({
+//       username,
+//       password: bcrypt.hashSync(password, salt),
+//     });
+//     res.json(userDoc);
 
-  } catch(e) {
-    res.status(400).json(e);
-  }
+//   } catch(e) {
+//     res.status(400).json(e);
+//   }
   
-})
+// })
 
 app.post('/login', async (req, res) => {
   const {username, password} = req.body;
@@ -56,11 +62,12 @@ app.post('/login', async (req, res) => {
   const passOk = bcrypt.compareSync(password, userDoc.password);
    if (passOk) {
     //logged in
-    jwt.sign({username,id:userDoc._id}, process.env.SECRET, {}, (err,token) => {
+    jwt.sign({ username, id: userDoc._id, userRole: userDoc.userRole }, process.env.SECRET, {}, (err, token) => {
       if (err) throw err;
       res.cookie('token', token).json({
-        id:userDoc._id,
+        id: userDoc._id,
         username,
+        userRole: userDoc.userRole, // Include userRole in the response
       });
     });
   } else {
@@ -73,20 +80,37 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/profile', (req, res) =>{
-  const {token} = req.cookies;
+app.get('/profile', async (req, res) => {
+  const { token } = req.cookies;
 
-  jwt.verify(token, process.env.SECRET, {}, (err, info)=>{
-    if (err) throw err;
-    res.json(info);
-  })
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+
+    // Fetch the user document based on the decoded token's information
+    const userDoc = await User.findById(decodedToken.id);
+
+    if (!userDoc) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return the user information, including userRole
+    res.json({
+      id: userDoc._id,
+      username: userDoc.username,
+      userRole: userDoc.userRole, // Include userRole in the response
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok')
 }); 
 
-app.post('/post', uploadMiddleware.single('files'), async (req,res) => {
+app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
   const {originalname,path} = req.file;
   const parts = originalname.split('.');
   const ext = parts[parts.length - 1];
@@ -110,7 +134,7 @@ app.post('/post', uploadMiddleware.single('files'), async (req,res) => {
 });
 });
 
-app.put('/post', uploadMiddleware.single('files'), async (req, res) => {
+app.put('/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
   let newPath = null;
   if(req.file) {
     const {originalname,path} = req.file;
@@ -159,7 +183,7 @@ app.get('/post/:id', async(req, res) => {
   res.json(postDoc);
 }) 
 
-app.delete('/post/:id', async (req, res) => {
+app.delete('/post/:id', roleCheckMiddleware, async (req, res) => {
   const postId = req.params.id;
 
   try {

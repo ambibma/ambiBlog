@@ -27,6 +27,7 @@ function CreatePost() {
       method: 'POST',
       body: data,
       credentials: 'include'
+      
 
     });
 
