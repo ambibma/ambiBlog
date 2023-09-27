@@ -10,15 +10,21 @@ function PostDetails() {
   const [postInfo, setPostInfo] = useState(null)
 
 
-  useEffect(()=> {
+  useEffect(() => {
     fetch(`http://localhost:4000/post/${id}`)
-    .then(response => {
-      response.json().then(postInfo => {
-        setPostInfo(postInfo)
+      .then((response) => {
+        if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) {
+          throw new Error("Invalid response format");
+        }
+        return response.json();
+      })
+      .then((postInfo) => {
+        setPostInfo(postInfo);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    });
-   
-  },[]);
+  }, []);
 
   if(!postInfo) return '';
 
@@ -39,7 +45,7 @@ function PostDetails() {
           </div>)}
     <div className='image'>
     
-      <img src={`http://localhost:4000/${postInfo.cover}`}/>
+      <img src={postInfo.coverURL}/>
     </div>
       <div className='content'dangerouslySetInnerHTML={{__html:postInfo.content}}/>
       

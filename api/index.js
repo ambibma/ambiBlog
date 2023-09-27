@@ -7,55 +7,77 @@ const bcrypt = require('bcrypt')
 const salt = bcrypt.genSaltSync(10);
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const multer = require('multer');
-const uploadMiddleware = multer({dest: 'uploads/'});
 require('dotenv').config();
 const fs = require('fs');
 const PostModel = require('./models/Post');
 const limiter = require('./limiter');
 const roleCheckMiddleware = require('./roleCheckMiddleware');
+const multer = require('multer');
+const {GridFsStorage} = require('multer-gridfs-storage');
 
 
+
+
+const router = express.Router();
+
+const mongoURI = process.env.MONGODB;
 
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(express.json())
-app.use('/uploads', express.static(__dirname + '/uploads'));
+
 app.use('/api', limiter);
 
 
-
-// const storage = multer.diskStorage({
-//   desination: "uploads",
-//   filename: (req, file, cb) => {
-//     console.log(file);
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-
-mongoose.connect(process.env.MONGODB);
-
-// app.post('/register', async (req, res) => {
-//   const {username, password} = req.body;
-//   try {
-//     const userDoc = await User.create({
-//       username,
-//       password: bcrypt.hashSync(password, salt),
-//     });
-//     res.json(userDoc);
-
-//   } catch(e) {
-//     res.status(400).json(e);
-//   }
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+  });
   
-// })
+  const conn = mongoose.connection;
+  const db = conn.getClient().db(); 
+
+  
+  const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.getClient().db('test'), {
+    bucketName: 'fs',
+});
+
+  
+
+
+const storage = new GridFsStorage({
+  db: conn.getClient().db(), 
+  file: (req, file) => {
+    return {
+      filename: file.originalname, 
+    };
+  },
+});
+const uploadMiddleware = multer({ storage });
+
+
+
+const streamToBuffer = (stream) => {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', (chunk) => chunks.push(chunk));
+    stream.on('end', () => resolve(Buffer.concat(chunks)));
+    stream.on('error', (error) => reject(error));
+  });
+};
+
+module.exports = router;
+
+
 
 app.post('/login', async (req, res) => {
   const {username, password} = req.body;
   try {
     const userDoc = await User.findOne({username});
   if (!userDoc) {
-    // If no user with the specified username is found, send an error response.
     return res.status(400).json({ error: 'User not found' });
   }
 
@@ -67,14 +89,13 @@ app.post('/login', async (req, res) => {
       res.cookie('token', token).json({
         id: userDoc._id,
         username,
-        userRole: userDoc.userRole, // Include userRole in the response
+        userRole: userDoc.userRole, 
       });
     });
   } else {
     res.status(400).json('wrong credentials');
   }
  } catch (err) {
-    // Handle any other errors that may occur during the database query or JWT signing.
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -86,18 +107,16 @@ app.get('/profile', async (req, res) => {
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET);
 
-    // Fetch the user document based on the decoded token's information
     const userDoc = await User.findById(decodedToken.id);
 
     if (!userDoc) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Return the user information, including userRole
     res.json({
       id: userDoc._id,
       username: userDoc.username,
-      userRole: userDoc.userRole, // Include userRole in the response
+      userRole: userDoc.userRole, 
     });
   } catch (err) {
     console.error(err);
@@ -110,13 +129,36 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok')
 }); 
 
-app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
-  const {originalname,path} = req.file;
-  const parts = originalname.split('.');
-  const ext = parts[parts.length - 1];
-  const newPath = path+'.'+ext;
-  fs.renameSync(path, newPath);
+//Populate Posts
 
+app.get('/post', async (req, res) => {
+  try {
+    const posts = await PostModel.find()
+      .populate('author', ['username'])
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    const postsWithCoverURLs = await Promise.all(
+      posts.map(async (post) => {
+        const imageFilename = post.cover;
+        const imageStream = gfs.openDownloadStreamByName(imageFilename);
+        const imageBuffer = await streamToBuffer(imageStream);
+        const imageURL = `data:image/webp;base64,${imageBuffer.toString('base64')}`;
+        return { ...post._doc, coverURL: imageURL };
+      })
+    );
+
+    res.json(postsWithCoverURLs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+// Create post with file upload
+
+app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
+
+  const { filename } = req.file;
   const {token} = req.cookies;
 
   jwt.verify(token, process.env.SECRET, {}, async (err,info) => {
@@ -126,77 +168,81 @@ app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async 
       title,
       summary,
       content,
-      cover:newPath,
+      cover: filename,
       author:info.id,
     });
     res.json(postDoc);
   
 });
 });
-
+//Edit post with new file upload
 app.put('/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
-  let newPath = null;
-  if(req.file) {
-    const {originalname,path} = req.file;
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1];
-     newPath = path+'.'+ext;
-    fs.renameSync(path, newPath);
-  }
+  const { token } = req.cookies;
 
-  const {token}= req.cookies; 
-
-  jwt.verify(token, process.env.SECRET, {}, async (err,info) => {
+  jwt.verify(token, process.env.SECRET, {}, async (err, info) => {
     if (err) throw err;
-    const {id, title,summary,content} = req.body;
+
+    const { id, title, summary, content } = req.body;
     const postDoc = await PostModel.findById(id);
-    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-    
-    if (!isAuthor) {
-      return res.status(400).json('you are not the author');
+
+    if (!postDoc) {
+      return res.status(404).json({ error: 'Post not found' });
     }
-    await postDoc.updateOne({
-      title,
-      summary,
-      content,
-      cover: newPath ? newPath: postDoc.cover,
-    });
-    res.json(postDoc);   
+
+    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+
+    if (!isAuthor) {
+      return res.status(400).json('You are not the author');
+    }
+
+    postDoc.title = title;
+    postDoc.summary = summary;
+    postDoc.content = content;
+
+    if (req.file) {
+      postDoc.cover = req.file.filename;
+    }
+
+    await postDoc.save();
+
+    res.json(postDoc);
+  });
+});
+
+//Post Details
+
+app.get('/post/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const postDoc = await PostModel.findById(id).populate('author', ['username']);
+
+    if (!postDoc) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    const imageFilename = postDoc.cover;
+    const readstream = gfs.openDownloadStreamByName(imageFilename);
+    const imageBuffer = await streamToBuffer(readstream);
+    const imageURL = `data:image/webp;base64,${imageBuffer.toString('base64')}`;
   
-});
-  
-});
-
-app.get('/post', async (req, res) => {
-
-  res.json(await PostModel.find()
-  .populate('author', ['username'])
-  .sort({createdAt: -1})
-  .limit (20)
-  );
+    res.json({ ...postDoc._doc, coverURL: imageURL });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
-app.get('/post/:id', async(req, res) => {
-  const {id} = req.params;
-  const postDoc = await PostModel.findById(id).populate('author', ['username']);
 
-  res.json(postDoc);
-}) 
+//Delete post
 
 app.delete('/post/:id', roleCheckMiddleware, async (req, res) => {
   const postId = req.params.id;
 
   try {
-    // Find the post by its ID
     const post = await PostModel.findById(postId);
-    
-
     if (!post) {
-      // If the post is not found, return a 404 Not Found response
       return res.status(404).json({ error: 'Post not found' });
     }
-
-    // Check if the current user is the author of the post
     const { token } = req.cookies;
     jwt.verify(token, process.env.SECRET, {}, async (err, info) => {
       if (err) throw err;
@@ -204,22 +250,19 @@ app.delete('/post/:id', roleCheckMiddleware, async (req, res) => {
       const isAuthor = JSON.stringify(post.author) === JSON.stringify(info.id);
       
       if (!isAuthor) {
-        // If the current user is not the author, return a 403 Forbidden response
         return res.status(403).json({ error: 'You are not the author of this post' });
       }
-
-      // Delete the post
       await post.deleteOne();
-
-      // Return a success response
       res.json({ message: 'Post deleted successfully' });
     });
   } catch (error) {
-    // Handle any errors that may occur during the deletion process
+
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
   
 
 app.listen(4000)

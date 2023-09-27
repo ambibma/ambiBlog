@@ -2,12 +2,12 @@ import React from 'react';
 import {format} from 'date-fns';
 import { Link } from 'react-router-dom';
 
-export default function Post({_id, title, summary, cover, content,author, createdAt}) {
+export default function Post({_id, title, summary, coverURL, content,author, createdAt}) {
   return (
     <div className="post">
           <div className="image">
             <Link to={`/post/${_id}`}> 
-            <img src={'http://localhost:4000/'+ cover}/>
+            <img src={coverURL}/>
             </Link>
           </div>          
           <div className="texts">
