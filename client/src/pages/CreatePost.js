@@ -23,7 +23,7 @@ function CreatePost() {
     
   
     
-    const response  = await  fetch('http://localhost:4000/post', {
+    const response  = await  fetch('http://localhost:4000/api/post', {
       method: 'POST',
       body: data,
       credentials: 'include'

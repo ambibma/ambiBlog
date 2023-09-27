@@ -73,7 +73,7 @@ module.exports = router;
 
 
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const {username, password} = req.body;
   try {
     const userDoc = await User.findOne({username});
@@ -156,7 +156,7 @@ app.get('/post', async (req, res) => {
 });
 // Create post with file upload
 
-app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
+app.post('/api/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
 
   const { filename } = req.file;
   const {token} = req.cookies;
@@ -176,7 +176,7 @@ app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async 
 });
 });
 //Edit post with new file upload
-app.put('/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
+app.put('/api/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
   const { token } = req.cookies;
 
   jwt.verify(token, process.env.SECRET, {}, async (err, info) => {
