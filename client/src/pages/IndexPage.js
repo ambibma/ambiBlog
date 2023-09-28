@@ -13,7 +13,7 @@ export default function IndexPage() {
             return response.json();
         })
         .then(posts => {
-            console.log('Received posts:', posts);
+           
             setPosts(posts);
         })
         .catch(error => {
