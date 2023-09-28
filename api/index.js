@@ -22,7 +22,7 @@ const router = express.Router();
 
 const mongoURI = process.env.MONGODB;
 
-app.use(cors({credentials:true,origin:'http://localhost:3000'}));
+app.use(cors({credentials:true,origin:'https://ambi-blog.onrender.com'}));
 app.use(cookieParser());
 app.use(express.json())
 
