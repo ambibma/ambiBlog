@@ -41,7 +41,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   const db = conn.getClient().db('test'); 
 
   
-  const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.getClient().db('test'), {
+  const gfs = new mongoose.mongo.GridFSBucket(db, {
     bucketName: 'fs',
 });
 
