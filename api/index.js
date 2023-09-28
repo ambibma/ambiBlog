@@ -38,7 +38,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   });
   
   const conn = mongoose.connection;
-  const db = conn.getClient().db(); 
+  const db = conn.getClient().db('test'); 
 
   
   const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.getClient().db('test'), {
@@ -156,7 +156,7 @@ app.get('/post', async (req, res) => {
 });
 // Create post with file upload
 
-app.post('/api/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
+app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async (req,res) => {
 
   const { filename } = req.file;
   const {token} = req.cookies;

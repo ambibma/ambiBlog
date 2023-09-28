@@ -23,7 +23,7 @@ export default function EditPost(){
         setSummary(postInfo.summary);
       });
     });
-  },[]);
+  }, []);
   
 
   async function updatePost(e){
