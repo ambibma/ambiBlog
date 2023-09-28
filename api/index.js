@@ -20,7 +20,7 @@ const {GridFsStorage} = require('multer-gridfs-storage');
 
 const router = express.Router();
 
-const mongoURI = process.env.MONGODB;
+const mongoURI = process.env.MONGODB_URI;
 
 app.use(cors({credentials:true,origin:'https://ambi-blog.onrender.com'}));
 app.use(cookieParser());
@@ -38,10 +38,10 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   });
   
   const conn = mongoose.connection;
-  const db = conn.getClient().db('test'); 
+  // const db = conn.getClient().db('test'); 
 
   
-  const gfs = new mongoose.mongo.GridFSBucket(db, {
+  const gfs = new mongoose.mongo.GridFSBucket(conn, {
     bucketName: 'fs',
 });
 
@@ -49,7 +49,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const storage = new GridFsStorage({
-  db: conn.getClient().db(), 
+  db: conn, 
   file: (req, file) => {
     return {
       filename: file.originalname, 
