@@ -145,7 +145,10 @@ app.get('/profile', async (req, res) => {
 
 
 app.post('/logout', (req, res) => {
-  res.cookie('token', '').json('ok')
+  res.cookie('token', null, {
+    httpOnly: true,
+    expires: new Date(0),
+  }).json('ok');
 }); 
 
 //Populate Posts
