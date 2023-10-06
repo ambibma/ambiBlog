@@ -11,7 +11,7 @@ function PostDetails() {
 
 
   useEffect(() => {
-    fetch(`https://ambi-blog-api.onrender.com/post/${id}`)
+    fetch(`http://localhost:4000/post/${id}`)
       .then((response) => {
         if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) {
           throw new Error("Invalid response format");

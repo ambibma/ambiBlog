@@ -23,7 +23,7 @@ function CreatePost() {
     
   
     
-    const response  = await  fetch('https://ambi-blog-api.onrender.com/post', {
+    const response  = await  fetch('http://localhost:4000/post', {
       method: 'POST',
       body: data,
       credentials: 'include'

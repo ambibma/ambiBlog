@@ -37,7 +37,7 @@ export default function EditPost(){
     if(files?.[0]) {
       data.set('files', files?.[0])
     }
-    const response = await fetch('https://ambi-blog-api.onrender.com/api/post', {
+    const response = await fetch('http://localhost:4000/api/post', {
       method: 'PUT',
       credentials: 'include',
       body: data,
