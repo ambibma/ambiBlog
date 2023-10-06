@@ -100,6 +100,8 @@ app.post('/api/login', async (req, res) => {
       res.cookie('token', token, {
         httpOnly: true,
         expires: new Date(Date.now() + 1 * 60 * 60 * 1000), // Expires in 1 hour
+        sameSite: 'None', // Allow cross-site cookies
+        secure: true, // Only send cookies over HTTPS
       });
 
       // Respond with user information
