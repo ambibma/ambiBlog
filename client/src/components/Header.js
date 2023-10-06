@@ -7,7 +7,7 @@ export default function Header() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://ambi-blog.onrender.com/profile", {
+    fetch("https://ambi-blog-api.onrender.com/profile", {
       credentials: "include",
     })
       .then((response) => {
