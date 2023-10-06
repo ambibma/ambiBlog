@@ -72,30 +72,47 @@ const streamToBuffer = (stream) => {
 module.exports = router;
 
 
+//Login 
 
 app.post('/api/login', async (req, res) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
+  
   try {
-    const userDoc = await User.findOne({username});
-  if (!userDoc) {
-    return res.status(400).json({ error: 'User not found' });
-  }
+    const userDoc = await User.findOne({ username });
+    
+    if (!userDoc) {
+      return res.status(400).json({ error: 'User not found' });
+    }
 
-  const passOk = bcrypt.compareSync(password, userDoc.password);
-   if (passOk) {
-    //logged in
-    jwt.sign({ username, id: userDoc._id, userRole: userDoc.userRole }, process.env.SECRET, {}, (err, token) => {
-      if (err) throw err;
-      res.cookie('token', token).json({
+    const passOk = bcrypt.compareSync(password, userDoc.password);
+
+    if (passOk) {
+      // User successfully authenticated
+
+      // Create a JWT token
+      const token = jwt.sign(
+        { username, id: userDoc._id, userRole: userDoc.userRole },
+        process.env.SECRET,
+        { expiresIn: '1h' }
+      );
+
+      // Set the token as an HTTP-only cookie
+      res.cookie('token', token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1 * 60 * 60 * 1000), // Expires in 1 hour
+      });
+
+      // Respond with user information
+      res.json({
         id: userDoc._id,
         username,
-        userRole: userDoc.userRole, 
+        userRole: userDoc.userRole,
       });
-    });
-  } else {
-    res.status(400).json('wrong credentials');
-  }
- } catch (err) {
+    } else {
+      // Incorrect password
+      res.status(400).json('Wrong credentials');
+    }
+  } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
