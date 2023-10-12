@@ -1,6 +1,17 @@
 *{
   box-sizing: border-box;
 }
+
+#light{
+  background-color: #f9f9f9;
+}
+
+#dark {
+  background-color: #131516;
+}
+
+
+
 body {
   color: #333;
 }
@@ -171,6 +182,16 @@ div.post-page a.edit-btn {
   padding: 15px 30px;
   border-radius: 5px;
   text-decoration: none;
+  
+}
+
+div.loaderContainer {
+  
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  display: flex;
+  margin-top: 410px;
   
 }
 

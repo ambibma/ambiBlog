@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
+
+
+
 export default function Header() {
   const { setUserInfo, userInfo, userRole, setUserRole } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -59,7 +62,7 @@ export default function Header() {
   return (
     <header>
       <Link to="/" className="logo">
-        My Blog
+        Hello, Welcome to Ambi's blog
       </Link>
       <nav>
         {loading ? (
@@ -85,6 +88,7 @@ export default function Header() {
                 {/* <Link to="/register">Register</Link> */}
               </>
             )}
+            
           </>
         )}
       </nav>
