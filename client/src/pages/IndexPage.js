@@ -6,6 +6,7 @@ import Post from '../components/Post'
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visitorCounter, setVisitorCounter] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:4000/post')
@@ -25,6 +26,21 @@ export default function IndexPage() {
             setLoading(false);
         });
 }, []);
+
+  useEffect(() => {
+    fetch ('http://localhost:4000/')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error (`HTTP error!, Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(visitorCounter => {
+          setVisitorCounter(visitorCounter)
+
+        })
+    
+  }, []);
 
   return (
     <>
@@ -47,6 +63,10 @@ export default function IndexPage() {
       </>
     
     )}
+    <div className="visitorCounter">
+     <h2>Visitors: {visitorCounter.visitors}</h2> 
+
+    </div>
     </>
   )
 }

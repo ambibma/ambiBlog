@@ -130,6 +130,12 @@ form h1 {
   min-height: 100px;
 }
 
+div.visitorCounter { 
+  display: flex;
+  margin-top: 500px;
+  
+}
+
 div.post-page div.image {
   max-height: 200px;
   display: flex;
