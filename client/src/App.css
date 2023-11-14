@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Exo+2:200i);
+
 *{
   box-sizing: border-box;
 }
@@ -7,13 +10,84 @@
 }
 
 #dark {
-  background-color: #131516;
+  background-color: #141316;
+}
+
+:root {
+ 
+  --neon-text-color: rgb(208, 18, 242);
+  --neon-border-color: rgb(37, 23, 110);
 }
 
 
 
+.neon-sign {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 2rem;
+  font-weight: 200;
+  font-style: italic;
+  color: #f6a6e9;
+  padding: .75rem 1rem .75rem;
+  border: 0.2rem solid #fff;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  animation: flicker 1.5s infinite alternate;
+}
+
+.neon-sign::-moz-selection {
+  background-color: var(--neon-border-color);
+  color: var(--neon-text-color);
+}
+
+.neon-sign::selection {
+  background-color: var(--neon-border-color);
+  color: var(--neon-text-color);
+}
+
+.neon-sign:focus {
+  outline: none;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      -0.2rem -0.2rem 1rem #fff,
+      0.2rem 0.2rem 1rem #fff,
+      0 0 2rem var(--neon-text-color),
+      0 0 4rem var(--neon-text-color),
+      0 0 6rem var(--neon-text-color),
+      0 0 8rem var(--neon-text-color),
+      0 0 10rem var(--neon-text-color);
+
+    box-shadow:
+      0 0 .5rem #fff,
+      inset 0 0 .5rem #fff,
+      0 0 2rem var(--neon-border-color),
+      inset 0 0 2rem var(--neon-border-color),
+      0 0 4rem var(--neon-border-color),
+      inset 0 0 4rem var(--neon-border-color);
+  }
+
+  20%, 24%, 55% {
+    text-shadow: 
+      -0.2rem -0.2rem 0.5rem #fff,
+      0.2rem 0.2rem 0.5rem #fff;
+
+    box-shadow:
+      0 0 .2rem #fff,
+      inset 0 0 .2rem #fff;
+  }
+}
+
+
+
+
+
+
 body {
-  color: #333;
+  color: #ffffff;
+  background-color: #383047;
+  font-family: 'Source Code Pro', monospace;
 }
 img {
   max-width: 100%;
@@ -33,7 +107,21 @@ header {
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 50px;
-  align-items: center;
+  align-items: relative;
+  position: relative; /* Add position relative to the header */
+  padding-bottom: 2em;
+  padding-left: -10px;
+  padding-right: 2em;
+}
+
+div .divider {
+  height: 1px;
+  width: 110%;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0; /* Adjust the position to control the spacing */
+  left: -5%; /* Adjust the left position to center the line */
+  z-index: -1; /* Move the divider behind other elements */
 }
 
 header a {
@@ -49,8 +137,11 @@ header a.logo {
 header nav {
   display: flex;
   gap: 15px;
+  align-items: flex-end;
 
 }
+
+
 
 div.post {
   display: grid;
@@ -93,6 +184,10 @@ div.post p.summary{
   line-height: 1.4rem;
 
 }
+
+form.text-editor
+
+
 form.login, form.register{
   max-width: 400px;
   margin: 0 auto;
@@ -122,6 +217,22 @@ form h1 {
   text-align: center;
 }
 
+div.quill-container{
+  margin-top: 100px;
+  padding: 25px;
+  background-color: rgb(77, 82, 159);
+}
+.ql-toolbar.ql-snow{
+  background-color: white;
+}
+.ql-editor {
+  background-color: white;
+  color: black;
+  min-height: 500px;
+}
+input {
+  color: black;
+}
 .text-editor {
   
   margin: 0 auto;
