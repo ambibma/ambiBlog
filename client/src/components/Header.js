@@ -61,9 +61,11 @@ export default function Header() {
 
   return (
     <header>
-      <Link to="/" className="logo">
-        Hello, Welcome to Ambi's blog
+    
+      <Link to="/" className="neon-sign">
+        Ambi
       </Link>
+    
       <nav>
         {loading ? (
           <span>Loading...</span>
@@ -91,7 +93,9 @@ export default function Header() {
             
           </>
         )}
+        <div className='divider'> </div>
       </nav>
+      
     </header>
   );
 }

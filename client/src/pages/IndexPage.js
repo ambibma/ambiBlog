@@ -6,7 +6,7 @@ import Post from '../components/Post'
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     fetch('https://ambi-blog-api.onrender.com/post')
         .then(response => {
@@ -26,6 +26,7 @@ export default function IndexPage() {
         });
 }, []);
 
+  
   return (
     <>
     {loading ?  (
@@ -47,6 +48,7 @@ export default function IndexPage() {
       </>
     
     )}
+    
     </>
   )
 }

@@ -41,27 +41,31 @@ function CreatePost() {
 
 
   return (
-    
-    <form onSubmit={createNewPost}>  
-      <input 
-      type="text" 
-      placeholder={'Title'} 
-      value={title}
-      onChange={e => setTitle(e.target.value)} />
-      <input 
-      type="summary" 
-      value={summary}
-      placeholder={'Summary'}
-      onChange={e => setSummary(e.target.value)} 
-      />
-      <input 
-      type="file"  
-      name='file'
-      onChange={e => setFiles(e.target.files)}
+   <div className='quill-container'>
+
+      <form onSubmit={createNewPost}>  
+        <input 
+          type="text" 
+          placeholder={'Title'} 
+          value={title}
+          onChange={e => setTitle(e.target.value)} />
+        <input 
+          type="summary" 
+          value={summary}
+          placeholder={'Summary'}
+          onChange={e => setSummary(e.target.value)} 
         />
-      <Editor value={content}  onChange={setContent}/>
-      <button style={{marginTop: '5px'}}>Create Post </button>
-    </form>
+        <input 
+          type="file"  
+          name='file'
+          onChange={e => setFiles(e.target.files)}
+        />
+        <Editor 
+          value={content}  
+          onChange={setContent}/>
+        <button style={{marginTop: '5px'}}>Create Post </button>
+      </form>
+    </div> 
    
   );
 }

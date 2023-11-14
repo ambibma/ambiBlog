@@ -7,6 +7,7 @@ export default function Layout({ showHeader }) {
   return (
     <main>
       {<Header />}
+      
       <Outlet />
     </main>
   )

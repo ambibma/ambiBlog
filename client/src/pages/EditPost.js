@@ -67,7 +67,7 @@ export default function EditPost(){
 
 
   return (
-    <div>
+    <div className="quill-container">
     <form onSubmit={updatePost}>  
       <input 
       type="text" 
