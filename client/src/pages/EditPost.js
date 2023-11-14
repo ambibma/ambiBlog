@@ -14,7 +14,7 @@ export default function EditPost(){
 
 
   useEffect(()=> {
-    fetch('http://localhost:4000/post/'+id , {
+    fetch('https://ambi-blog-api.onrender.com/post/'+id , {
     })
     .then(response => {
       response.json().then(postInfo => {
@@ -53,7 +53,7 @@ export default function EditPost(){
     }
 
     async function deletePost() {
-      const response = await fetch(`http://localhost:4000/post/${id}`, {
+      const response = await fetch(`https://ambi-blog-api.onrender.com/post/${id}`, {
         method: 'DELETE',
         credentials: 'include'
       })
