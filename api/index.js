@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const fs = require('fs');
 const PostModel = require('./models/Post');
-const VisitorModel = require ('./models/Visitor')
+
 const limiter = require('./limiter');
 const roleCheckMiddleware = require('./roleCheckMiddleware');
 const multer = require('multer');
@@ -76,34 +76,8 @@ module.exports = router;
 
 
 
-app.get('/', async function (req, res){
-  let visitors = await VisitorModel.findOne({name: 'ambiBlogCounter' })
 
-  if (visitors === null) {
-    const beginCount = new VisitorModel({
-      name: 'ambiBlogCounter',
-      count: 1
-    })
-    
-    beginCount.save();
 
-    res.send(`<h2>Counter: `+1`</h2>`)
-
-    console.log("First Visitor arrived")
-  }
-  else {
-    visitors.count +=1;
-
-    visitors.save();
-
-    res.json({
-      visitors: visitors.count
-    })
-
-    console.log("visitor arrived: ", visitors.count)
-  }
-  
-})
 
 
 //Login 
