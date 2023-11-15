@@ -248,15 +248,15 @@ div.visitorCounter {
 }
 
 div.post-page div.image {
-  max-height: 200px;
+  max-height: 450px;
   display: flex;
   overflow: hidden;
 
 }
 div.post-page div.image img{
-  object-fit: cover;
+  object-fit: scale-down;
   object-position: center center;
-  width: 100%;
+  width: fit-content;
 }
 
 div.post-page a{
@@ -284,6 +284,14 @@ div.post-page div.content p{
   line-height: 1.6rem;
 
 } 
+
+div.post-page div.content p img{
+  display: block;
+  margin: 0 auto; 
+  max-width: 100%; 
+  height: auto; 
+}
+
 
 div.edit-row {
   text-align: center;
