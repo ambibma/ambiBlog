@@ -13,7 +13,9 @@ A development of a personal blog using MERN stack (Mongo DB, Express, React and 
   * ~~Creating a post detail page~~
   * ~~Edit post~~
   * ~~delete post~~
-  * Securing myself as the only one able to create posts
-  * Figuring out how to host it somewhere.... hmmmm
+  * ~~Securing myself as the only one able to create posts~~
+  * ~~Figuring out how to host it somewhere.... hmmmm~~
+  * Add portfolio and projects page
+  * fun new objects to tinker with
 
 License Ambi Hidalgo(c) 2023
