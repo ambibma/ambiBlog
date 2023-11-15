@@ -41,6 +41,7 @@ function CreatePost() {
 
 
   return (
+    
    <div className='quill-container'>
 
       <form onSubmit={createNewPost}>  

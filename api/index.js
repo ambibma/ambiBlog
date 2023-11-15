@@ -73,13 +73,6 @@ const streamToBuffer = (stream) => {
 
 module.exports = router;
 
-
-
-
-
-
-
-
 //Login 
 
 app.post('/api/login', async (req, res) => {
@@ -206,7 +199,7 @@ app.post('/post', roleCheckMiddleware, uploadMiddleware.single('files'),  async 
 });
 });
 //Edit post with new file upload
-app.put('/api/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
+app.put('/post', roleCheckMiddleware, uploadMiddleware.single('files'), async (req, res) => {
   const { token } = req.cookies;
 
   jwt.verify(token, process.env.SECRET, {}, async (err, info) => {
