@@ -288,4 +288,4 @@ app.delete('/post/:id', roleCheckMiddleware, async (req, res) => {
 
   
 
-app.listen(4000)
+app.listen(10000)

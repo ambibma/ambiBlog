@@ -40,7 +40,7 @@ export default function Header() {
   }, []);
 
   function handleLogout() {
-    fetch("http://localhost:4000/logout", {
+    fetch("https://ambi-blog-api.onrender.com/logout", {
       credentials: "include",
       method: "POST",
     })
