@@ -140,7 +140,7 @@ app.get('/profile', async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(404).json({ error: 'Profile not found' });
   }
 });
 
