@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
 import { DotWave } from '@uiball/loaders'
+import {useState, useEffect} from 'react';
+import Post from '../components/Post';
 
-import Post from '../components/Post'
-
-export default function IndexPage() {
+function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -18,6 +17,7 @@ export default function IndexPage() {
         .then(posts => {
            
             setPosts(posts);
+            console.log(posts); 
             setLoading(false);
         })
         .catch(error => {
@@ -25,8 +25,7 @@ export default function IndexPage() {
             setLoading(false);
         });
 }, []);
-
-  
+   
   return (
     <>
     {loading ?  (
@@ -50,5 +49,7 @@ export default function IndexPage() {
     )}
     
     </>
-  )
+  );
 }
+
+export default Blog;

@@ -107,21 +107,20 @@ header {
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 50px;
-  align-items: relative;
-  position: relative; /* Add position relative to the header */
+  align-items: baseline;
+  position: relative;
   padding-bottom: 2em;
-  padding-left: -10px;
-  padding-right: 2em;
 }
+
 
 div .divider {
   height: 1px;
   width: 110%;
   background-color: #fff;
   position: absolute;
-  bottom: 0; /* Adjust the position to control the spacing */
-  left: -5%; /* Adjust the left position to center the line */
-  z-index: -1; /* Move the divider behind other elements */
+  bottom: 0; 
+  left: -5%; 
+  z-index: -1; 
 }
 
 header a {
@@ -134,14 +133,29 @@ header a.logo {
   font-size: 1.5rem;
 
 }
-header nav {
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
   display: flex;
   gap: 15px;
   align-items: flex-end;
-
 }
 
+.create-link-container {
+  align-items: flex-end; 
+  margin-right: auto; 
+}
 
+.nav-items {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end; 
+}
 
 div.post {
   display: grid;
