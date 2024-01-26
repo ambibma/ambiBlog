@@ -16,6 +16,7 @@ const roleCheckMiddleware = require('./roleCheckMiddleware');
 const multer = require('multer');
 const {GridFsStorage} = require('multer-gridfs-storage');
 const { count } = require('console');
+const { ok } = require('assert');
 
 
 
@@ -72,6 +73,19 @@ const streamToBuffer = (stream) => {
 };
 
 module.exports = router;
+
+
+//Health endpoint
+
+app.get('/status', async (req, res) =>{
+  
+    if(res != res.status(200)){
+      return res.json('Not okay');
+    }
+  
+    return res.json('ok')
+
+})
 
 //Login 
 
