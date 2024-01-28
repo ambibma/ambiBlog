@@ -58,7 +58,7 @@ export default function EditPost(){
         credentials: 'include'
       })
       if (response.ok) {
-        navigate('/')
+        navigate('/blog')
       }
      
     }

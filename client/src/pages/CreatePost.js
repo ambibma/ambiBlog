@@ -36,7 +36,7 @@ function CreatePost() {
     }
   }
     if (redirect) {
-     return <Navigate to={'/'} />
+     return <Navigate to={'/blog'} />
     }
 
 

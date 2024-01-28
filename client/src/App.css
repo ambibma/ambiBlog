@@ -146,15 +146,28 @@ nav {
   align-items: flex-end;
 }
 
-.create-link-container {
-  align-items: flex-end; 
-  margin-right: auto; 
+div.create-link-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a#create-link{
+  background-color: #333;
+  display: inline-flex;
+  align-items: center;
+  
+  gap: 5px;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
 .nav-items {
   display: flex;
   gap: 15px;
   align-items: flex-end; 
+  margin-top: 60px;
 }
 
 div.post {
