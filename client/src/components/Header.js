@@ -65,12 +65,7 @@ export default function Header() {
       Ambi
     </Link>
 
-    <nav>
-      {userRole === "admin" && (
-        <div className="create-link-container">
-          <Link id="create-link" to="/create">Create New Post</Link>
-        </div>
-      )}
+    <nav>  
 
       <div className="nav-items">
         <Link to='/blog'>Blog</Link>
@@ -79,18 +74,12 @@ export default function Header() {
         ) : (
           <>
             {username ? (
-              <>
-                {userRole === "admin" && (
+              <>               
                   <a onClick={handleLogout}>Logout</a>
-                )}
-                {userRole === "user" && (
-                  <a onClick={handleLogout}>Logout</a>
-                )}
               </>
             ) : (
               <>
                 <Link to="/login">Login</Link>
-                {/* <Link to="/register">Register</Link> */}
               </>
             )}
           </>
