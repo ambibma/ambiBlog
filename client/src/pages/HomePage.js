@@ -1,5 +1,6 @@
 import React from 'react';
 import avatar from '../assets/images/Cat_owl.webp'
+import Title from '../components/Title';
 
 function HomePage(props) {
   return (
@@ -17,8 +18,7 @@ function HomePage(props) {
       </div>
       <div className='project-container'>
         <h1>Project</h1>
-        <a>Item1</a>
-        <a>Item2</a>
+      
         <a>Item3</a>
        
        
