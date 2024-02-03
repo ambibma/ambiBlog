@@ -61,41 +61,33 @@ export default function Header() {
 
   return (
     <header>
-    
-      <Link to="/" className="neon-sign">
-        Ambi
-      </Link>
-    
-      <nav>
+    <Link to="/" className="neon-sign">
+      Ambi
+    </Link>
+
+    <nav>  
+
+      <div className="nav-items">
+        <Link to='/blog'>Blog</Link>
         {loading ? (
           <span>Loading...</span>
         ) : (
           <>
             {username ? (
-              <>
-                <span>Hello, {username}</span>
-                {userRole === "admin" && (
-                  <>
-                    <Link to="/create">Create New Post</Link>
-                    <a onClick={handleLogout}>Logout</a>
-                  </>
-                )}
-                {userRole === "user" && (
+              <>               
                   <a onClick={handleLogout}>Logout</a>
-                )}
               </>
             ) : (
               <>
                 <Link to="/login">Login</Link>
-                {/* <Link to="/register">Register</Link> */}
               </>
             )}
-            
           </>
         )}
-        <div className='divider'> </div>
-      </nav>
-      
-    </header>
+      </div>
+    </nav>
+
+    <div className='divider'></div>
+  </header>
   );
 }

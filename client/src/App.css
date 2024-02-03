@@ -107,21 +107,20 @@ header {
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 50px;
-  align-items: relative;
-  position: relative; /* Add position relative to the header */
+  align-items: baseline;
+  position: relative;
   padding-bottom: 2em;
-  padding-left: -10px;
-  padding-right: 2em;
 }
+
 
 div .divider {
   height: 1px;
   width: 110%;
   background-color: #fff;
   position: absolute;
-  bottom: 0; /* Adjust the position to control the spacing */
-  left: -5%; /* Adjust the left position to center the line */
-  z-index: -1; /* Move the divider behind other elements */
+  bottom: 0; 
+  left: -5%; 
+  z-index: -1; 
 }
 
 header a {
@@ -134,14 +133,127 @@ header a.logo {
   font-size: 1.5rem;
 
 }
-header nav {
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
   display: flex;
   gap: 15px;
   align-items: flex-end;
-
 }
 
 
+div.home-container{
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px;
+  display: grid;
+  grid-column: auto ;
+ 
+  align-items: left;
+  gap: 5px;
+}
+div.profile-container{
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 20px;
+  margin-bottom: 15px;
+  
+  
+}
+
+div.titleClass{
+  margin-left: 10px;
+}
+a.titleLink{
+  text-decoration: none;
+  color: pink;
+  font-size: large;
+  
+}
+div.titleDescription{
+  color: rgb(162, 46, 65);
+}
+div.titleDate{
+  font-size: large;
+}
+
+h1.profile-header{
+  text-align: left;
+}
+
+h1.contact-header{
+  text-align: left;
+}
+
+img.avatar{
+  border-radius: 5px;
+  width: 309px;
+  height: auto;
+  margin: 5px 10px 5px;
+  padding: 10px;
+  border:solid white;
+  float:left;
+}
+
+p.profile-text{
+  text-wrap: wrap;
+  padding: 5px 5px 5px;
+  margin: 5px 5px 5px;
+}
+
+
+div.project-container{
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+
+}
+
+div.blog-container{
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+
+}
+
+div.contact-container{
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+
+}
+
+div.create-link-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a#create-link{
+  background-color: #333;
+  display: inline-flex;
+  align-items: center;
+  
+  gap: 5px;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.nav-items {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end; 
+  margin-top: 60px;
+}
 
 div.post {
   display: grid;
@@ -323,3 +435,74 @@ div.loaderContainer {
 a svg{
   height: 20px;
 }
+
+.contact-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #383047; 
+  color: #ffffff; 
+}
+
+.contact-form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.contact-form-container input[type="text"],
+.contact-form-container input[type="email"],
+.contact-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  background-color: #595b7c; 
+  color: #ffffff; 
+}
+
+.contact-form-container textarea {
+  height: 100px;
+}
+
+.custom-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #333; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #555; 
+}
+
+.custom-button svg {
+  width: 25px; 
+  height: 25px; 
+  padding: 5px;
+}
+
+div.footer-container{
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid white;
+  
+}
+
+a.iconLinks{
+  color: inherit;
+  text-decoration: none;
+  padding: 1em;
+}
+
+
+
