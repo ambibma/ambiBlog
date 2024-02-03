@@ -19,9 +19,9 @@ function App() {
     <UserContextProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Index />} />
-           <Route path='/blog' element={<Blog /> } />
-          <Route path="/post/:id" element={<PostDetails />} />
+        <Route index element={<Index />} />
+        <Route path='/blog' element={<Blog /> } />
+        <Route path="/post/:id" element={<PostDetails />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/register" element={<RegisterPage />} /> */}
