@@ -23,7 +23,7 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:4000/post')
+    fetch('https://ambi-blog-api.onrender.com/post')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -71,7 +71,7 @@ function Index() {
           <Title 
           key={post.id} 
           title={post.title}  
-          link ={`http://localhost:3000/post/${post._id}`}
+          link ={`https://ambi-blog.onrender.com/post/${post._id}`}
           description={post.summary}
           date={post.createdAt}
 
