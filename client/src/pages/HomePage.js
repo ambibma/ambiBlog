@@ -81,7 +81,8 @@ function HomePage() {
         ))}
       </div>
       <div className='contact-container'>
-        <h1>contact</h1>     
+        <h1>contact</h1>
+        <ContactForm/>
 
       </div>
     </div>
