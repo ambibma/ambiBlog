@@ -5,7 +5,7 @@ import Title from '../components/Title';
 import { Link, Navigate } from 'react-router-dom';
 import { ContactForm } from '../components/ContactForm';
 
-function HomePage() {
+function Index() {
   //State for projects
   const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -52,12 +52,12 @@ function HomePage() {
         <img className='avatar'src={avatar} alt='avatar'/>
        </div>
      
-       <p className='profile-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+       <p className='profile-text'> Hi there! My name is Ambi and welcome to my blog! I am a full stack developer who likes building, optimizing and learning. I specialize in React.JS, Node.js, Express and C# .NET. I enjoy the development process of writing code and straining my eyes at the screen locating bugs. I created this website from the ground up to document about my experiences, learnings and findings in my developer journey. While I am always practicing to hone my skills in web dev, I also have interests in indie game development with C++ and tinkering with RaspberryPi. Other hobbies of mine include playing video games and painting.      </p>
      
        
       </div>
       <div className='project-container'>
-        <h1>Project</h1>
+      <h1 className='profile-header'>Projects</h1>
         {projects.map(project => (
           <Title key={project.id} {...project}/>
         ))}
@@ -66,7 +66,7 @@ function HomePage() {
          
       </div>
       <div className='blog-container'>
-       <h1>Blog</h1>
+      <h1 className='profile-header'>Blog</h1>
         {posts.map(post=> (
           <Title 
           key={post.id} 
@@ -81,7 +81,7 @@ function HomePage() {
         ))}
       </div>
       <div className='contact-container'>
-        <h1>contact</h1>
+      <h1 className='contact-header'>Contact</h1>
         <ContactForm/>
 
       </div>
@@ -89,4 +89,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Index;
