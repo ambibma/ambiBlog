@@ -41,8 +41,6 @@ This website consumes data via restfulAPI written in NodeJs to MongoDB services 
 
   * fun new objects to tinker with
   
-=======
->>>>>>> testDeploy2
 
 MIT License
 
