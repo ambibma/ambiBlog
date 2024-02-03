@@ -6,7 +6,7 @@ import { UserContextProvider } from './UserContext';
 import CreatePost from './pages/CreatePost';
 import PostDetails from './pages/PostDetails';
 import EditPost from './pages/EditPost';
-import HomePage from './pages/HomePage';
+import Index from './pages/Index';
 
 import Blog from './pages/Blog';
 
@@ -19,7 +19,7 @@ function App() {
     <UserContextProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<Index />} />
            <Route path='/blog' element={<Blog /> } />
           <Route path="/post/:id" element={<PostDetails />} />
         </Route>
