@@ -10,7 +10,7 @@ const Footer = () => {
           <a className='iconLinks'href="https://github.com/ambibma" target="_blank" rel="noopener noreferrer">
             <GitHubIcon />
           </a>
-          <a className='iconLinks'href="https://www.linkedin.com/in/ambihidalgo/" target="_blank" rel="noopener noreferrer"><LinkedInIcon/></a>
+          <a className='iconLinks'href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><LinkedInIcon/></a>
         <p>(c) 2023-2024 Ambi Hidalgo</p>
         </div>
       </div>
