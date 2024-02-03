@@ -44,7 +44,7 @@ This website consumes data via restfulAPI written in NodeJs to MongoDB services 
 
 MIT License
 
-Copyright (c) [2023-2023] [Ambi Hidalgo]
+Copyright (c) [2023-2024] [Ambi Hidalgo]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
