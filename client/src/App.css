@@ -146,23 +146,20 @@ nav {
   align-items: flex-end;
 }
 
-/* Home Styes */
-/* @media screen and (min-width: 700px) {
-  div.home-container {
-    height: 1.1fr;
-    width: .9fr ;
-  }
-} */
+
 div.home-container{
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px;
   display: grid;
   grid-column: auto ;
-  border: 5px;
-  border: solid white;
+ 
   align-items: left;
   gap: 5px;
 }
 div.profile-container{
- 
+  border-radius: 5px;
+  border: 1px solid white;
   padding: 20px;
   margin-bottom: 15px;
   
@@ -189,9 +186,13 @@ h1.profile-header{
   text-align: left;
 }
 
+h1.contact-header{
+  text-align: left;
+}
+
 img.avatar{
-  
-  width: 330px;
+  border-radius: 5px;
+  width: 309px;
   height: auto;
   margin: 5px 10px 5px;
   padding: 10px;
@@ -207,16 +208,25 @@ p.profile-text{
 
 
 div.project-container{
-  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid white;
 
 }
 
 div.blog-container{
-  border: 1px solid yellow;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 1px solid white;
 
 }
 
 div.contact-container{
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
   border: 1px solid white;
 
 }
@@ -425,3 +435,74 @@ div.loaderContainer {
 a svg{
   height: 20px;
 }
+
+.contact-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #383047; 
+  color: #ffffff; 
+}
+
+.contact-form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.contact-form-container input[type="text"],
+.contact-form-container input[type="email"],
+.contact-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  background-color: #595b7c; 
+  color: #ffffff; 
+}
+
+.contact-form-container textarea {
+  height: 100px;
+}
+
+.custom-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #333; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.custom-button:hover {
+  background-color: #555; 
+}
+
+.custom-button svg {
+  width: 25px; 
+  height: 25px; 
+  padding: 5px;
+}
+
+div.footer-container{
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid white;
+  
+}
+
+a.iconLinks{
+  color: inherit;
+  text-decoration: none;
+  padding: 1em;
+}
+
+
+
