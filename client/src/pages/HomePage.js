@@ -1,7 +1,48 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import avatar from '../assets/images/Cat_owl.webp'
+import { ProjectData } from '../Data/ProjectData';
+import Title from '../components/Title';
+import { Link, Navigate } from 'react-router-dom';
+import { ContactForm } from '../components/ContactForm';
 
-function HomePage(props) {
+function HomePage() {
+  //State for projects
+  const [projects, setProjects] = useState([]);
+  const [posts, setPosts] = useState([]);
+  //State for Blog posts
+
+  function getProjects(){
+    const fetchedProjects = ProjectData;
+    setProjects(fetchedProjects);
+    console.log(fetchedProjects)
+    return fetchedProjects;
+  }
+
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/post')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(posts => {
+           
+            setPosts(posts);
+            console.log(posts);
+           
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            
+        });
+}, []);
+
+
   return (
     <div className='home-container'>
       <div className='profile-container'>
@@ -17,18 +58,30 @@ function HomePage(props) {
       </div>
       <div className='project-container'>
         <h1>Project</h1>
-        <a>Item1</a>
-        <a>Item2</a>
-        <a>Item3</a>
+        {projects.map(project => (
+          <Title key={project.id} {...project}/>
+        ))}
        
        
          
       </div>
       <div className='blog-container'>
        <h1>Blog</h1>
+        {posts.map(post=> (
+          <Title 
+          key={post.id} 
+          title={post.title}  
+          link ={`http://localhost:3000/post/${post._id}`}
+          description={post.summary}
+          date={post.createdAt}
+
+             
+
+          />
+        ))}
       </div>
       <div className='contact-container'>
-        <h1>contact</h1>
+        <h1>contact</h1>     
 
       </div>
     </div>

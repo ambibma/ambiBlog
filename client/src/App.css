@@ -164,9 +164,27 @@ div.home-container{
 div.profile-container{
  
   padding: 20px;
+  margin-bottom: 15px;
   
   
 }
+
+div.titleClass{
+  margin-left: 10px;
+}
+a.titleLink{
+  text-decoration: none;
+  color: pink;
+  font-size: large;
+  
+}
+div.titleDescription{
+  color: rgb(162, 46, 65);
+}
+div.titleDate{
+  font-size: large;
+}
+
 h1.profile-header{
   text-align: left;
 }
