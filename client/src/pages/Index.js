@@ -47,12 +47,12 @@ function Index() {
     <div className='home-container'>
       <div className='profile-container'>
        
-       <h1 className='profile-header'>Profile</h1>
+       <h1 className='profile-header'>Welcome to Ambi's blog!</h1>
        <div className='avatar-container'>
         <img className='avatar'src={avatar} alt='avatar'/>
        </div>
      
-       <p className='profile-text'> Hi there! My name is Ambi and welcome to my blog! I am a full stack developer who likes building, optimizing and learning. I specialize in React.JS, Node.js, Express and C# .NET. I enjoy the development process of writing code and straining my eyes at the screen locating bugs. I created this website from the ground up to document about my experiences, learnings and findings in my developer journey. While I am always practicing to hone my skills in web dev, I also have interests in indie game development with C++ and tinkering with RaspberryPi. Other hobbies of mine include playing video games and painting.      </p>
+       <p className='profile-text'> I am a full stack developer who likes building, optimizing and learning. I specialize in React.JS, Node.js, Express and C# .NET. I enjoy the development process of writing code and straining my eyes at the screen locating bugs. I created this website from the ground up to document about my experiences, learnings and findings in my developer journey. While I am always practicing to hone my skills in web dev, I also have interests in indie game development with C++ and tinkering with RaspberryPi. Other hobbies of mine include playing video games and painting.      </p>
      
        
       </div>
