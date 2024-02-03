@@ -11,7 +11,7 @@ const Footer = () => {
             <GitHubIcon />
           </a>
           <a className='iconLinks'href="https://www.linkedin.com/in/ambihidalgo/" target="_blank" rel="noopener noreferrer"><LinkedInIcon/></a>
-        <p>(c) 2023-2023 Ambi Hidalgo</p>
+        <p>(c) 2023-2024 Ambi Hidalgo</p>
         </div>
       </div>
     </footer>
