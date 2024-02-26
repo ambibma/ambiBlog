@@ -42,7 +42,7 @@ function Blog() {
       )}
 
     {loading ?  (
-        <div class='loaderContainer'>
+        <div className='loaderContainer'>
 
         <span> 
         <DotWave
@@ -55,7 +55,7 @@ function Blog() {
     ) : (
       <>
       {posts.length > 0 && posts.map(post => (
-        <Post key={post.id} {...post}/>
+        <Post key={post._id} {...post}/>
       ))}
       </>
     

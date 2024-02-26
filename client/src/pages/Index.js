@@ -69,7 +69,7 @@ function Index() {
       <h1 className='profile-header'>Blog</h1>
         {posts.map(post=> (
           <Title 
-          key={post.id} 
+          key={post._id} 
           title={post.title}  
           link ={`http://localhost:3000/post/${post._id}`}
           description={post.summary}
