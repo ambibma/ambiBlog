@@ -6,7 +6,7 @@ export const ProjectData = [
   title: 'Jam Mate',
   tech: 'React Native & Firebase',
   link: 'https://github.com/ambibma/Capstone',
-  description: "React Native and Firebase social mobile matchmaking application in which musicians and producers can meet",
+  description: "A musician social mobile matchmaking application in which artists can meet and collaborate",
 },
 
 {
