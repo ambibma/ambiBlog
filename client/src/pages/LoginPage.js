@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../context/UserContext';
 
 export default function LoginPage() {
   const [username, setUserName] = useState('');
@@ -42,7 +42,7 @@ export default function LoginPage() {
               value={password}
               onChange={event => setPassword(event.target.value)}
               />
-        <button>Login</button>
+        <button className="custom-button" >Login</button>
         </form>
     
   )
