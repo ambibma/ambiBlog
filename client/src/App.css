@@ -165,6 +165,14 @@ div.profile-container{
   
   
 }
+div.profile-container-2{
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 20px;
+  margin-bottom: 50px;
+  
+  
+}
 
 div.titleClass{
   margin-left: 10px;
@@ -185,6 +193,11 @@ div.titleDate{
 h1.profile-header{
   text-align: left;
 }
+
+h1.profile-header2{
+  text-align: left;
+}
+
 
 h1.contact-header{
   text-align: left;
@@ -297,12 +310,34 @@ div.post p.summary{
 
 }
 
-form.text-editor
+form.text-editor{
+
+}
 
 
 form.login, form.register{
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+
+  color: #ffffff; 
+  
+}
+form.login input[type="text"],
+form.login input[type="username"],
+form.login input[type="text"],
+form.login input[type="password"]{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ffffff; 
+  border-radius: 5px;
+  background-color: #595b7c; 
+  color: #ffffff; 
 }
 
 input {
@@ -426,9 +461,11 @@ div.loaderContainer {
   
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 350px;
+  margin-bottom: 350px;
+
   display: flex;
-  margin-top: 410px;
+ 
   
 }
 
@@ -480,6 +517,7 @@ a svg{
   transition: background-color 0.3s ease;
   font-size: 16px;
 }
+
 
 .custom-button:hover {
   background-color: #555; 
