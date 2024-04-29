@@ -102,9 +102,7 @@ app.post('/api/login', async (req, res) => {
     const passOk = bcrypt.compareSync(password, userDoc.password);
 
     if (passOk) {
-      // User successfully authenticated
-
-      // Create a JWT token
+      
       const token = jwt.sign(
         { username, id: userDoc._id, userRole: userDoc.userRole },
         process.env.SECRET,

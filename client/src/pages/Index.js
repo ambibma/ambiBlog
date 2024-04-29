@@ -14,7 +14,7 @@ function Index() {
   function getProjects(){
     const fetchedProjects = ProjectData;
     setProjects(fetchedProjects);
-    console.log(fetchedProjects)
+    
     return fetchedProjects;
   }
 
@@ -33,7 +33,7 @@ function Index() {
         .then(posts => {
            
             setPosts(posts);
-            console.log(posts);
+            
            
         })
         .catch(error => {
