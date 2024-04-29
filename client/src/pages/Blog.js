@@ -1,7 +1,7 @@
 import { DotWave } from '@uiball/loaders'
 import {useState, useEffect, useContext} from 'react';
 import Post from '../components/Post';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 
 function Blog() {
