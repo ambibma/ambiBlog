@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../context/UserContext";
 
 
 
@@ -23,39 +23,23 @@ export default function Header() {
       .then((userInfo) => {
         setUserInfo(userInfo);
 
-        // Check if the user has 'admin' role
+        
         if (userInfo.userRole === "admin") {
           setUserRole("admin");
         } else {
-          setUserRole("user"); // Set userRole to "user" by default
+          setUserRole("user");
         }
 
-        setLoading(false); // Set loading to false after user info is fetched
+        setLoading(false); 
       })
       .catch((error) => {
         console.error(error);
-        // Handle any errors here, e.g., redirect to the login page
-        setLoading(false); // Set loading to false on error
+        
+        setLoading(false); 
       });
   }, []);
 
-  function handleLogout() {
-    fetch("https://ambi-blog-api.onrender.com/logout", {
-      credentials: "include",
-      method: "POST",
-    })
-      .then((response) => {
-        if (response.ok) {
-          setUserInfo(null);
-        } else {
-          throw new Error("Logout failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Logout error:", error);
-        // Handle logout error here
-      });
-  }
+
 
   const username = userInfo?.username;
 
@@ -75,7 +59,8 @@ export default function Header() {
           <>
             {username ? (
               <>               
-                  <a onClick={handleLogout}>Logout</a>
+                  
+                  <Link to={`/profile/${userInfo.username}`}>Profile</Link>
               </>
             ) : (
               <>
