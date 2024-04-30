@@ -10,6 +10,11 @@ export default function Header() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    
+    if (!userInfo) {
+      return;
+    }
+  
     fetch("https://ambi-blog-api.onrender.com/profile", {
       credentials: "include",
     })
@@ -22,22 +27,22 @@ export default function Header() {
       })
       .then((userInfo) => {
         setUserInfo(userInfo);
-
-        
+  
         if (userInfo.userRole === "admin") {
           setUserRole("admin");
         } else {
           setUserRole("user");
         }
-
-        setLoading(false); 
+  
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
-        
-        setLoading(false); 
+  
+        setLoading(false);
       });
-  }, []);
+  }, [userInfo]); 
+  
 
 
 
