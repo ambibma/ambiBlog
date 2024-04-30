@@ -159,7 +159,7 @@ app.get('/profile', async (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.cookie('token', null, {
-    httpOnly: true,
+    httpOnly: false,
     expires: new Date(0),
   }).json('ok');
 }); 
