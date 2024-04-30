@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useState, useContext } from 'react';
 
 function Profile() {
-  const {userInfo, setUserInfo} = useContext(UserContext);  
+  const {userInfo, setUserInfo, setUserRole, userRole} = useContext(UserContext);  
   const [redirect, setRedirect] = useState(false);
 
   function handleLogout() {
@@ -14,6 +14,7 @@ function Profile() {
       .then((response) => {
         if (response.ok) {
           setUserInfo(null);
+          setUserRole(null);
           setRedirect(true);
           
         } else {
