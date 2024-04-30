@@ -24,7 +24,8 @@ This website consumes data via restfulAPI written in NodeJs to MongoDB services 
 
 ## Known Bugs
 
-* Logout functionality crashes when viewing a post's details
+* ~~Logout functionality crashes when viewing a post's details~~ (fixed 4/29)
+
 
 
 ## To Do
