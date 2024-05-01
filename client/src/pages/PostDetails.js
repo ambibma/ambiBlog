@@ -7,9 +7,8 @@ import {Link} from 'react-router-dom';
 
 function PostDetails() {
   const {id }= useParams();
-  const {userInfo} = useContext(UserContext);
   const [postInfo, setPostInfo] = useState(null)
-  const [loading, setLoading] = useState(true);
+
 
 
   useEffect(() => {
