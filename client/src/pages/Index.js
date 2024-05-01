@@ -6,11 +6,10 @@ import { Link, Navigate } from 'react-router-dom';
 import { ContactForm } from '../components/ContactForm';
 
 function Index() {
-  //State for projects
-  const [projects, setProjects] = useState([]);
   const [posts, setPosts] = useState([]);
-  //State for Blog posts
 
+  
+  
   function getProjects(){
     const fetchedProjects = ProjectData;
     setProjects(fetchedProjects);
